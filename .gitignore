@@ -1,0 +1,6 @@
+node_modules
+app/bower_components
+wallaby.js
+gulpfile.js
+.idea
+test

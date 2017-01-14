@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lingoApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingo</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+
+</head>
+<body>
+
+<div class="container" ng-controller="lingoCtrl as vm">
+
+    <div class="mainSection">
+
+        <div class="row inputBtn">
+            <div class="col-md-12">
+                <div class="input-group input-group-lg">
+
+                        <input class="form-control" type="text" minlength="5" maxlength="5" placeholder="Beliebiges Wort eingeben" ng-model="vm.userWord" ng-change="vm.checkWord(vm.generatedWord, vm.userWord)"/>
+
+
+                        <span class="input-group-btn"><button class="btn btn-primary" ng-click="vm.generateWord()">Start New Game</button></span>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row word-box">
+                    <label>Generiertes Wort: </label>
+                    <span>{{vm.generatedWord}}</span>
+                </div>
+
+                <div class="row word-box">
+                    <label>Eingegebenes Wort: </label>
+                    <span>{{vm.userWord}}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row word-box" ng-repeat="value in vm.result track by $index">
+                    <p>Position {{$index + 1}}: <span ng-if="value" ng-class="{'green': value}">OK!</span><span ng-if="!value" ng-class="{'has-error': !value}">FALSCH!</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="row word-box">
+                <div class="row">
+                    <label>Ergebnisse:</label>
+                </div>
+
+                <div class="row" ng-repeat="logValue in vm.log track by $index">
+                    <span>Versuch {{logValue.number}}:</span>
+                    <span ng-repeat="wordValue in logValue.word track by $index" ng-class="{'green': logValue.result[$index], 'has-error': !logValue.result[$index]}">{{wordValue}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+</body>
+<script src="./js/app.js"></script>
+<script src="./js/lingoCtrl.js"></script>
+</html>
